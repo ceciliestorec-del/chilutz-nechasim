@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>המרכז לחילוץ נכסים</title>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0B1929;
+    --navy-mid: #0F2035;
+    --gold: #C8973A;
+    --gold-light: #E8B55A;
+    --danger: #C0392B;
+    --danger-light: #E74C3C;
+    --white: #F4F6FA;
+    --gray: #8A8F99;
+    --section-bg: #0D1E30;
+    --font: 'Heebo', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font);
+    background: var(--navy);
+    color: var(--white);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ──── LOGO BAR ──── */
+  .logo-bar {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(200,151,58,0.15);
+    background: rgba(11,25,41,0.8);
+    backdrop-filter: blur(8px);
+    z-index: 10;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .logo-icon {
+    width: 38px;
+    height: 38px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+  }
+
+  .logo-text .line1 {
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.14em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  .logo-text .line2 {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--white);
+    letter-spacing: 0.02em;
+  }
+
+  .logo-badge {
+    font-size: 0.73rem;
+    color: var(--gray);
+    border: 1px solid rgba(200,151,58,0.25);
+    padding: 5px 14px;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    font-weight: 500;
+  }
+
+  /* ──── HERO ──── */
+  .hero {
+    min-height: 100vh;
+    background: var(--navy);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px 24px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* SVG background graphic */
+  .hero-graphic {
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 900px;
+    opacity: 0.13;
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  /* Radial glow */
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 30%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(circle, rgba(200,151,58,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    display: inline-block;
+    background: rgba(192,57,43,0.12);
+    border: 1px solid rgba(192,57,43,0.35);
+    color: #E07070;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 7px 20px;
+    border-radius: 30px;
+    margin-bottom: 32px;
+    text-transform: uppercase;
+    position: relative;
+  }
+
+  .hero h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    line-height: 1.18;
+    max-width: 820px;
+    margin-bottom: 26px;
+    color: var(--white);
+    letter-spacing: -0.01em;
+    position: relative;
+  }
+
+  .hero h1 em {
+    font-style: normal;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-size: clamp(0.95rem, 2vw, 1.15rem);
+    color: #8A9BB0;
+    max-width: 640px;
+    margin-bottom: 44px;
+    line-height: 1.85;
+    font-weight: 400;
+    position: relative;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--navy);
+    font-family: var(--font);
+    font-size: 1.05rem;
+    font-weight: 800;
+    padding: 17px 40px;
+    border-radius: 8px;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 28px rgba(200,151,58,0.3);
+    position: relative;
+    letter-spacing: 0.01em;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 40px rgba(200,151,58,0.45);
+  }
+
+  .hero-trust {
+    margin-top: 32px;
+    font-size: 0.82rem;
+    color: #4A5A70;
+    display: flex;
+    gap: 28px;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+    font-weight: 500;
+  }
+
+  .hero-trust span::before { content: '✓  '; color: var(--gold); }
+
+  /* ──── HOUSE ILLUSTRATION SVG ──── */
+  .house-scene {
+    position: relative;
+    width: 360px;
+    max-width: 90vw;
+    margin: 0 auto 48px;
+  }
+
+  /* ──── SECTIONS ──── */
+  .pain { background: var(--section-bg); padding: 90px 24px; }
+  .how { background: var(--navy); padding: 90px 24px; border-top: 1px solid rgba(200,151,58,0.1); }
+  .target { background: var(--section-bg); padding: 90px 24px; }
+  .steps { background: var(--navy); padding: 90px 24px; border-top: 1px solid rgba(200,151,58,0.1); }
+
+  .container { max-width: 960px; margin: 0 auto; }
+
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
+  }
+
+  .section-title {
+    font-size: clamp(1.5rem, 3.5vw, 2.4rem);
+    font-weight: 800;
+    line-height: 1.25;
+    margin-bottom: 40px;
+    color: var(--white);
+    letter-spacing: -0.01em;
+  }
+
+  /* Pain cards */
+  .pain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+
+  .pain-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(192,57,43,0.2);
+    border-right: 3px solid var(--danger);
+    border-radius: 10px;
+    padding: 28px 24px;
+    transition: background 0.2s;
+  }
+
+  .pain-card:hover { background: rgba(192,57,43,0.05); }
+  .pain-icon { font-size: 1.7rem; margin-bottom: 14px; display: block; }
+
+  .pain-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 10px; }
+  .pain-card p { font-size: 0.92rem; color: #6A7A90; line-height: 1.75; }
+
+  /* How tracks */
+  .how-intro { font-size: 1rem; color: #6A7A90; max-width: 680px; margin-bottom: 52px; line-height: 1.85; }
+  .how-tracks { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+
+  .track-card {
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(200,151,58,0.12);
+    border-radius: 12px;
+    padding: 32px 26px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .track-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+  }
+
+  .track-num {
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: rgba(200,151,58,0.1);
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+
+  .track-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 12px; color: var(--gold-light); }
+  .track-card p { font-size: 0.92rem; color: #6A7A90; line-height: 1.78; }
+
+  /* Target */
+  .target-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin-top: 40px; }
+
+  .target-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(200,151,58,0.1);
+    border-radius: 10px;
+    padding: 22px 18px;
+  }
+
+  .target-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 2px; }
+  .target-item h4 { font-size: 1rem; font-weight: 700; margin-bottom: 7px; }
+  .target-item p { font-size: 0.88rem; color: #6A7A90; line-height: 1.65; }
+
+  /* Steps */
+  .steps-timeline { display: flex; flex-direction: column; gap: 0; max-width: 680px; margin-top: 44px; }
+
+  .step { display: flex; gap: 24px; align-items: flex-start; position: relative; padding-bottom: 40px; }
+  .step:last-child { padding-bottom: 0; }
+
+  .step-line {
+    position: absolute;
+    right: 20px; top: 44px; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, rgba(200,151,58,0.4), rgba(200,151,58,0.05));
+  }
+
+  .step:last-child .step-line { display: none; }
+
+  .step-bubble {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), var(--gold-light));
+    color: var(--navy);
+    font-weight: 900;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 0 18px rgba(200,151,58,0.3);
+  }
+
+  .step-tag {
+    display: inline-block;
+    background: rgba(200,151,58,0.1);
+    color: var(--gold);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 3px 12px;
+    border-radius: 20px;
+    margin-bottom: 8px;
+    letter-spacing: 0.04em;
+  }
+
+  .step-content h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 9px; padding-top: 6px; }
+  .step-content p { font-size: 0.92rem; color: #6A7A90; line-height: 1.75; }
+
+  /* Form section */
+  .form-section {
+    background: linear-gradient(135deg, #090F1C 0%, #0F2035 100%);
+    padding: 90px 24px;
+    border-top: 2px solid var(--gold);
+  }
+
+  .form-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    margin-top: 44px;
+    align-items: start;
+  }
+
+  .form-left h3 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    color: var(--gold-light);
+    line-height: 1.5;
+  }
+
+  .form-guarantee { display: flex; flex-direction: column; gap: 14px; }
+
+  .guarantee-item { display: flex; gap: 12px; align-items: flex-start; }
+  .guarantee-icon { color: var(--gold); font-size: 1rem; flex-shrink: 0; margin-top: 3px; }
+  .guarantee-item p { font-size: 0.9rem; color: #6A7A90; line-height: 1.6; }
+
+  form { display: flex; flex-direction: column; gap: 14px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+  label { display: block; font-size: 0.8rem; font-weight: 700; color: #8A9BB0; margin-bottom: 5px; letter-spacing: 0.04em; text-transform: uppercase; }
+
+  input, select, textarea {
+    width: 100%;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.09);
+    border-radius: 8px;
+    padding: 13px 15px;
+    color: var(--white);
+    font-family: var(--font);
+    font-size: 0.95rem;
+    transition: border-color 0.2s, background 0.2s;
+    outline: none;
+    direction: rtl;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--gold);
+    background: rgba(200,151,58,0.05);
+  }
+
+  input::placeholder, textarea::placeholder { color: #2E3E52; }
+  select option { background: var(--navy-mid); color: var(--white); }
+  textarea { resize: vertical; min-height: 100px; }
+
+  .radio-group { display: flex; flex-direction: column; gap: 8px; }
+
+  .radio-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 15px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .radio-option:hover { border-color: var(--gold); background: rgba(200,151,58,0.05); }
+
+  .radio-option input[type="radio"] {
+    width: 16px; height: 16px;
+    accent-color: var(--gold);
+    flex-shrink: 0;
+    padding: 0; border: none; background: transparent;
+  }
+
+  .radio-option span { font-size: 0.9rem; color: #8A9BB0; font-weight: 500; }
+
+  .btn-submit {
+    width: 100%;
+    background: linear-gradient(135deg, var(--danger), var(--danger-light));
+    color: #fff;
+    font-family: var(--font);
+    font-size: 1.05rem;
+    font-weight: 800;
+    padding: 17px 32px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 28px rgba(192,57,43,0.3);
+    margin-top: 4px;
+    letter-spacing: 0.02em;
+  }
+
+  .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 36px rgba(192,57,43,0.45); }
+
+  .form-privacy { text-align: center; font-size: 0.78rem; color: #3A4A5A; margin-top: 6px; font-weight: 500; }
+
+  .success-msg {
+    display: none;
+    background: rgba(39,174,96,0.08);
+    border: 1px solid rgba(39,174,96,0.25);
+    border-radius: 12px;
+    padding: 40px 32px;
+    text-align: center;
+  }
+
+  .success-msg.visible { display: block; }
+  .success-msg h3 { font-size: 1.4rem; color: #2ECC71; margin-bottom: 12px; font-weight: 800; }
+  .success-msg p { color: #6A7A90; font-size: 0.95rem; }
+
+  footer {
+    background: #060C14;
+    padding: 26px 24px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #2A3445;
+    border-top: 1px solid rgba(200,151,58,0.06);
+    font-weight: 500;
+  }
+
+  @media (max-width: 768px) {
+    .logo-bar { padding: 16px 20px; }
+    .form-wrapper { grid-template-columns: 1fr; gap: 36px; }
+    .form-row { grid-template-columns: 1fr; }
+    .hero { padding: 100px 20px 60px; }
+    .pain, .how, .target, .steps, .form-section { padding: 60px 20px; }
+    .hero-trust { gap: 12px; }
+    .house-scene { width: 280px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <nav class="logo-bar">
+    <div class="logo">
+      <div class="logo-icon">🏛</div>
+      <div class="logo-text">
+        <span class="line1">המרכז</span>
+        <span class="line2">לחילוץ נכסים</span>
+      </div>
+    </div>
+    <div class="logo-badge">🔒 דיסקרטיות מלאה מובטחת</div>
+  </nav>
+
+  <!-- House illustration -->
+  <div class="house-scene">
+    <svg viewBox="0 0 360 240" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">
+      <!-- Ground shadow -->
+      <ellipse cx="180" cy="230" rx="150" ry="10" fill="rgba(200,151,58,0.06)"/>
+
+      <!-- House body -->
+      <rect x="70" y="120" width="220" height="110" rx="4" fill="#0F2035" stroke="rgba(200,151,58,0.25)" stroke-width="1.5"/>
+
+      <!-- Roof -->
+      <polygon points="55,122 180,40 305,122" fill="#0D1929" stroke="rgba(200,151,58,0.35)" stroke-width="1.5"/>
+
+      <!-- Roof ridge highlight -->
+      <line x1="180" y1="40" x2="55" y2="122" stroke="rgba(200,151,58,0.15)" stroke-width="1"/>
+      <line x1="180" y1="40" x2="305" y2="122" stroke="rgba(200,151,58,0.15)" stroke-width="1"/>
+
+      <!-- Door -->
+      <rect x="155" y="175" width="50" height="55" rx="3" fill="#08111E" stroke="rgba(200,151,58,0.2)" stroke-width="1"/>
+      <circle cx="163" cy="203" r="2.5" fill="rgba(200,151,58,0.5)"/>
+
+      <!-- Windows -->
+      <rect x="88" y="145" width="52" height="38" rx="3" fill="#08111E" stroke="rgba(200,151,58,0.2)" stroke-width="1"/>
+      <line x1="114" y1="145" x2="114" y2="183" stroke="rgba(200,151,58,0.15)" stroke-width="1"/>
+      <line x1="88" y1="163" x2="140" y2="163" stroke="rgba(200,151,58,0.15)" stroke-width="1"/>
+
+      <rect x="220" y="145" width="52" height="38" rx="3" fill="#08111E" stroke="rgba(200,151,58,0.2)" stroke-width="1"/>
+      <line x1="246" y1="145" x2="246" y2="183" stroke="rgba(200,151,58,0.15)" stroke-width="1"/>
+      <line x1="220" y1="163" x2="272" y2="163" stroke="rgba(200,151,58,0.15)" stroke-width="1"/>
+
+      <!-- Chain left -->
+      <g opacity="0.7">
+        <line x1="55" y1="122" x2="20" y2="180" stroke="#C0392B" stroke-width="2.5" stroke-dasharray="5,4"/>
+        <circle cx="20" cy="185" r="8" fill="none" stroke="#C0392B" stroke-width="2"/>
+        <line x1="12" y1="185" x2="28" y2="185" stroke="#C0392B" stroke-width="2"/>
+        <line x1="20" y1="177" x2="20" y2="193" stroke="#C0392B" stroke-width="2"/>
+      </g>
+
+      <!-- Chain right -->
+      <g opacity="0.7">
+        <line x1="305" y1="122" x2="340" y2="180" stroke="#C0392B" stroke-width="2.5" stroke-dasharray="5,4"/>
+        <circle cx="340" cy="185" r="8" fill="none" stroke="#C0392B" stroke-width="2"/>
+        <line x1="332" y1="185" x2="348" y2="185" stroke="#C0392B" stroke-width="2"/>
+        <line x1="340" y1="177" x2="340" y2="193" stroke="#C0392B" stroke-width="2"/>
+      </g>
+
+      <!-- Warning stamp -->
+      <rect x="100" y="55" width="160" height="44" rx="5" fill="rgba(192,57,43,0.18)" stroke="rgba(192,57,43,0.6)" stroke-width="2" transform="rotate(-5,180,77)"/>
+      <text x="180" y="73" text-anchor="middle" font-size="10" font-weight="800" fill="#E74C3C" font-family="Arial,sans-serif" transform="rotate(-5,180,77)" direction="ltr" unicode-bidi="bidi-override">⚠</text>
+      <text x="180" y="89" text-anchor="middle" font-size="12" font-weight="800" fill="#E74C3C" font-family="Arial,sans-serif" transform="rotate(-5,180,77)" direction="rtl">תחת שעבוד</text>
+    </svg>
+  </div>
+
+  <div class="hero-eyebrow">⚠ כל יום שעובר עולה לכם כסף</div>
+
+  <h1>אל תיתנו לחברת האשראי<br>לקחת לכם את <em>הנכס</em>.<br>אנחנו פה כדי לחלץ אותו.</h1>
+
+  <p class="hero-sub">
+    המרכז לחילוץ נכסים מתמחה בהצלת קרקעות, שטחים, פרויקטים ובנייני מגורים המשועבדים לגופי מימון חוץ-בנקאיים. פתרון מיידי, חיסיון מלא, ללא התחייבות.
+  </p>
+
+  <a href="#form" class="btn-primary">👈 לבדיקת היתכנות חסויה לחילוץ הנכס</a>
+
+  <div class="hero-trust">
+    <span>ללא התחייבות</span>
+    <span>תגובה תוך 24-48 שעות</span>
+    <span>חיסיון מוחלט</span>
+  </div>
+</section>
+
+<!-- PAIN -->
+<section class="pain">
+  <div class="container">
+    <div class="section-label">המצב שלכם</div>
+    <h2 class="section-title">האם הסיטואציה הזו מוכרת לכם?</h2>
+    <div class="pain-grid">
+      <div class="pain-card">
+        <span class="pain-icon">⛓</span>
+        <h3>תקועים עם הלוואת בלון</h3>
+        <p>לקחתם הלוואת בלון או גישור לפרויקט נדל"ן, והתנאים או הריביות הפכו לחונקים לחלוטין.</p>
+      </div>
+      <div class="pain-card">
+        <span class="pain-icon">⏳</span>
+        <h3>מועד הפירעון קרוב</h3>
+        <p>מועד הפירעון מתקרב ואתם לא מצליחים למחזר את החוב בבנק או בגוף פיננסי שגרתי.</p>
+      </div>
+      <div class="pain-card">
+        <span class="pain-icon">⚖️</span>
+        <h3>איום במימוש השעבוד</h3>
+        <p>חברת המימון לוחצת, מאיימת או כבר החלה בהליכים משפטיים עבור נכס ששווה מיליונים.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section class="how">
+  <div class="container">
+    <div class="section-label">השיטה שלנו</div>
+    <h2 class="section-title">מה אנחנו עושים?</h2>
+    <p class="how-intro">אנחנו לא עוד חברת הלוואות. אנחנו הגשר שלכם בין חנק פיננסי לביטחון קנייני. המרכז פועל בשני ערוצים מרכזיים בהתאם לסוג הנכס שלכם.</p>
+    <div class="how-tracks">
+      <div class="track-card">
+        <div class="track-num">01</div>
+        <h3>מחיקת החוב והחלפת המימון</h3>
+        <p>עובדים עם קרנות נדל"ן, משקיעים פרטיים וגופי מימון מוסדיים – ומביאים הון מיידי לסגירת השעבוד החונק.</p>
+      </div>
+      <div class="track-card">
+        <div class="track-num">02</div>
+        <h3>שותפות יזמית לקרקעות ופרויקטים</h3>
+        <p>במקום מכירה בלחץ ובחצי מחיר, נכנסים איתכם לשותפות הוגנת. אנחנו מביאים מימון וניהול – אתם שומרים על אחוזים משמעותיים.</p>
+      </div>
+      <div class="track-card">
+        <div class="track-num">03</div>
+        <h3>מחזור מורכב לבתי מגורים</h3>
+        <p>אם הבית שלכם בסכנה, מחלצים אתכם מהגוף החוץ-בנקאי, פורסים את החוב בתנאים מוגנים, ומסירים את איום הכינוס.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TARGET -->
+<section class="target">
+  <div class="container">
+    <div class="section-label">קהל היעד</div>
+    <h2 class="section-title">עם מי אנחנו עובדים?</h2>
+    <div class="target-list">
+      <div class="target-item">
+        <div class="target-icon">🏗</div>
+        <div>
+          <h4>בעלי שטחים וקרקעות</h4>
+          <p>יזמים ואנשים פרטיים ששיעבדו קרקע בעלת פוטנציאל כנגד הלוואה הקטנה בהרבה משוויה.</p>
+        </div>
+      </div>
+      <div class="target-item">
+        <div class="target-icon">🏢</div>
+        <div>
+          <h4>יזמים וקבלנים תקועים</h4>
+          <p>חברות בנייה שנתקעו באמצע פרויקט בגלל קשיי תזרים ונמצאות תחת איום השתלטות.</p>
+        </div>
+      </div>
+      <div class="target-item">
+        <div class="target-icon">🏠</div>
+        <div>
+          <h4>בעלי בתים ונכסי מגורים</h4>
+          <p>מי שלקחו הלוואת בלון בריביות גבוהות וזקוקים למחזור חוב דחוף להצלת ביתם.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STEPS -->
+<section class="steps">
+  <div class="container">
+    <div class="section-label">תהליך העבודה</div>
+    <h2 class="section-title">3 שלבים לחילוץ הנכס שלכם</h2>
+    <div class="steps-timeline">
+      <div class="step">
+        <div class="step-bubble">1</div>
+        <div class="step-line"></div>
+        <div class="step-content">
+          <div class="step-tag">תוך 24-48 שעות</div>
+          <h3>ניתוח מהיר ודיסקרטי</h3>
+          <p>הצוות בוחן את שווי הנכס הריאלי אל מול גובה החוב הנוכחי – בדיסקרטיות וחיסיון מוחלט.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-bubble">2</div>
+        <div class="step-line"></div>
+        <div class="step-content">
+          <div class="step-tag">גיבוש תוכנית</div>
+          <h3>תוכנית חילוץ מותאמת אישית</h3>
+          <p>מציגים פתרון מוגדר לסגירת החוב מול הגוף החונק, בשילוב מתווה שמשאיר אתכם מורווחים ובטוחים.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-bubble">3</div>
+        <div class="step-content">
+          <div class="step-tag">יציאה לדרך</div>
+          <h3>החוב נמחק, השעבוד מוסר</h3>
+          <p>החוב הישן נמחק, השעבוד מוסר, ומתחילים לעבוד על השבחת הנכס ועתיד פיננסי יציב.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORM -->
+<section class="form-section" id="form">
+  <div class="container">
+    <div class="section-label">⚡ פעלו עכשיו – אל תחכו</div>
+    <h2 class="section-title">אל תחכו שהם יממשו את השעבוד<br>ויקחו לכם את מפעל החיים.</h2>
+
+    <div class="form-wrapper">
+      <div class="form-left">
+        <h3>השאירו פרטים לבדיקת היתכנות חסויה, מקצועית, וללא שום התחייבות.</h3>
+        <div class="form-guarantee">
+          <div class="guarantee-item">
+            <span class="guarantee-icon">🔒</span>
+            <p><strong style="color:#BDC5D0">חיסיון מוחלט</strong> – כל הפרטים שמוסרים לנו נשמרים בסודיות מלאה</p>
+          </div>
+          <div class="guarantee-item">
+            <span class="guarantee-icon">⚡</span>
+            <p><strong style="color:#BDC5D0">תגובה תוך 24-48 שעות</strong> – הצוות שלנו פועל במהירות שיא</p>
+          </div>
+          <div class="guarantee-item">
+            <span class="guarantee-icon">🤝</span>
+            <p><strong style="color:#BDC5D0">ללא התחייבות</strong> – בדיקת ההיתכנות חינמית ולא מחייבת</p>
+          </div>
+          <div class="guarantee-item">
+            <span class="guarantee-icon">💼</span>
+            <p><strong style="color:#BDC5D0">ניסיון מוכח</strong> – עשרות עסקאות מורכבות שטופלו בהצלחה</p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <form id="leadForm">
+          <div class="form-row">
+            <div>
+              <label for="fname">שם פרטי *</label>
+              <input type="text" id="fname" name="fname" placeholder="ישראל" required>
+            </div>
+            <div>
+              <label for="lname">שם משפחה *</label>
+              <input type="text" id="lname" name="lname" placeholder="ישראלי" required>
+            </div>
+          </div>
+
+          <div>
+            <label for="phone">טלפון נייד *</label>
+            <input type="tel" id="phone" name="phone" placeholder="050-0000000" required>
+          </div>
+
+          <div>
+            <label for="email">כתובת מייל</label>
+            <input type="email" id="email" name="email" placeholder="israel@gmail.com">
+          </div>
+
+          <div>
+            <label>סוג הנכס המשועבד *</label>
+            <div class="radio-group">
+              <label class="radio-option">
+                <input type="radio" name="asset_type" value="קרקע / שטח פתוח" required>
+                <span>🏗 קרקע / שטח פתוח</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="asset_type" value="פרויקט בבנייה / תמ״א">
+                <span>🏢 פרויקט בבנייה / תמ"א</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="asset_type" value="בית מגורים / דירה">
+                <span>🏠 בית מגורים / דירה</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="asset_type" value="נכס מסחרי">
+                <span>🏪 נכס מסחרי / חנות / משרד</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div>
+              <label for="debt">גובה החוב (₪)</label>
+              <input type="text" id="debt" name="debt" placeholder="לדוגמה: 2,000,000">
+            </div>
+            <div>
+              <label for="value">שווי הנכס (₪)</label>
+              <input type="text" id="value" name="value" placeholder="לדוגמה: 6,000,000">
+            </div>
+          </div>
+
+          <div>
+            <label for="details">תיאור קצר של הסיטואציה</label>
+            <textarea id="details" name="details" placeholder="ספרו לנו בקצרה – דיסקרטיות מלאה מובטחת..."></textarea>
+          </div>
+
+          <button type="submit" class="btn-submit">🔥 שלח לבדיקה חסויה מיידית</button>
+          <p class="form-privacy">🔒 פרטיכם מאובטחים ולעולם לא יועברו לצד שלישי</p>
+        </form>
+
+        <div class="success-msg" id="successMsg">
+          <h3>✅ הפנייה התקבלה בהצלחה!</h3>
+          <p>הצוות שלנו יצור איתכם קשר בתוך 24-48 שעות. כל הפרטים ישמרו בחיסיון מוחלט.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2025 המרכז לחילוץ נכסים · כל הזכויות שמורות · חיסיון ודיסקרטיות מוחלטים
+</footer>
+
+<script>
+  document.getElementById('leadForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = this.querySelector('.btn-submit');
+    btn.textContent = '⏳ שולח...';
+    btn.disabled = true;
+    const data = {
+      'שם פרטי': document.getElementById('fname').value,
+      'שם משפחה': document.getElementById('lname').value,
+      'טלפון': document.getElementById('phone').value,
+      'מייל': document.getElementById('email').value,
+      'סוג נכס': document.querySelector('input[name="asset_type"]:checked')?.value || '',
+      'גובה חוב': document.getElementById('debt').value,
+      'שווי נכס': document.getElementById('value').value,
+      'פרטים': document.getElementById('details').value,
+      'זמן פנייה': new Date().toLocaleString('he-IL')
+    };
+    try {
+      const res = await fetch('https://formspree.io/f/xaqgqoay', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      if (res.ok) {
+        this.style.display = 'none';
+        document.getElementById('successMsg').classList.add('visible');
+      } else {
+        btn.textContent = '❌ שגיאה, נסה שנית';
+        btn.disabled = false;
+      }
+    } catch (err) {
+      btn.textContent = '❌ שגיאה, נסה שנית';
+      btn.disabled = false;
+    }
+  });
+</script>
+</body>
+</html>
